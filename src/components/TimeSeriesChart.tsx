@@ -11,37 +11,21 @@ interface Props {
 const TimeSeriesChart: React.FC<Props> = ({ data, filteredData, startDate, endDate }) => {
   const processedData = useMemo(() => {
     return data.map(d => ({
-      x: new Date(d.arrival_date_year, new Date(`${d.arrival_date_month} 1`).getMonth(), d.arrival_date_day_of_month),
+      x: new Date(d.arrival_date_year, new Date(`${d.arrival_date_month} 1`).getMonth(), d.arrival_date_day_of_month).getTime(),
       y: d.adults + d.children + d.babies
-    })).sort((a, b) => a.x.getTime() - b.x.getTime());
+    })).sort((a, b) => a.x - b.x);
   }, [data]);
 
   const processedFilteredData = useMemo(() => {
     return filteredData.map(d => ({
-      x: new Date(d.arrival_date_year, new Date(`${d.arrival_date_month} 1`).getMonth(), d.arrival_date_day_of_month),
+      x: new Date(d.arrival_date_year, new Date(`${d.arrival_date_month} 1`).getMonth(), d.arrival_date_day_of_month).getTime(),
       y: d.adults + d.children + d.babies
-    })).sort((a, b) => a.x.getTime() - b.x.getTime());
+    })).sort((a, b) => a.x - b.x);
   }, [filteredData]);
-
-  const projectedData = useMemo(() => {
-    if (!startDate || !endDate || processedFilteredData.length === 0) return [];
-
-    const totalVisitors = processedFilteredData.reduce((sum, d) => sum + d.y, 0);
-    const averageVisitorsPerDay = totalVisitors / processedFilteredData.length;
-
-    const projectionDays = Math.ceil((endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24));
-    const projectedVisitors = Math.round(averageVisitorsPerDay * projectionDays);
-
-    return [
-      { x: startDate, y: processedFilteredData[0]?.y || null },
-      { x: endDate, y: projectedVisitors }
-    ];
-  }, [processedFilteredData, startDate, endDate]);
 
   const series = [
     { name: 'Actual Visitors', data: processedData },
-    { name: 'Filtered Visitors', data: processedFilteredData },
-    { name: 'Projected Visitors', data: projectedData }
+    { name: 'Filtered Visitors', data: processedFilteredData }
   ];
 
   const options = {
@@ -58,7 +42,7 @@ const TimeSeriesChart: React.FC<Props> = ({ data, filteredData, startDate, endDa
       }
     },
     title: {
-      text: 'Number of Visitors per Day (Actual and Projected)',
+      text: 'Number of Visitors per Day',
     },
     tooltip: {
       shared: true,
@@ -69,8 +53,7 @@ const TimeSeriesChart: React.FC<Props> = ({ data, filteredData, startDate, endDa
     },
     stroke: {
       curve: 'smooth' as const,
-      width: [2, 2, 2],
-      dashArray: [0, 0, 5]
+      width: [2, 2],
     },
   };
 
