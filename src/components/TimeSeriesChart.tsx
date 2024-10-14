@@ -46,11 +46,11 @@ const TimeSeriesChart: React.FC<Props> = ({ data, filteredData, startDate, endDa
 
   const options = {
     chart: {
-      type: 'line',
+      type: 'line' as const,
       zoom: { enabled: true },
     },
     xaxis: {
-      type: 'datetime',
+      type: 'datetime' as const,
     },
     yaxis: {
       title: {
@@ -68,7 +68,7 @@ const TimeSeriesChart: React.FC<Props> = ({ data, filteredData, startDate, endDa
       size: 0,
     },
     stroke: {
-      curve: 'smooth',
+      curve: 'smooth' as const,
       width: [2, 2, 2],
       dashArray: [0, 0, 5]
     },

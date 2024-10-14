@@ -72,7 +72,12 @@ const App: React.FC = () => {
         setStartDate={setStartDate}
         setEndDate={setEndDate}
       />
-      <TimeSeriesChart data={bookings} filteredData={filteredBookings} startDate={startDate} endDate={endDate} />
+      <TimeSeriesChart 
+        data={bookings} 
+        filteredData={filteredBookings} 
+        startDate={startDate} 
+        endDate={endDate} 
+      />
       <ColumnChart data={filteredBookings} />
       <SparklineChart label="Adult Visitors" data={adultsData} />
       <SparklineChart label="Children Visitors" data={childrenData} />
