@@ -1,6 +1,6 @@
-import React from 'react';
-import DatePicker from 'react-datepicker';
-import 'react-datepicker/dist/react-datepicker.css';
+import React from "react";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 interface Props {
   startDate: Date | null;
@@ -9,7 +9,12 @@ interface Props {
   setEndDate: (date: Date | null) => void;
 }
 
-const CustomDatePicker: React.FC<Props> = ({ startDate, endDate, setStartDate, setEndDate }) => {
+const CustomDatePicker: React.FC<Props> = ({
+  startDate,
+  endDate,
+  setStartDate,
+  setEndDate,
+}) => {
   return (
     <div>
       <DatePicker

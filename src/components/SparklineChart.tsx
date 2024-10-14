@@ -1,5 +1,5 @@
-import React from 'react';
-import ReactApexChart from 'react-apexcharts';
+import React from "react";
+import ReactApexChart from "react-apexcharts";
 
 interface Props {
   label: string;
@@ -10,12 +10,19 @@ const SparklineChart: React.FC<Props> = ({ label, data }) => {
   const series = [{ data }];
 
   const options = {
-    chart: { type: 'line', sparkline: { enabled: true } },
+    chart: { type: "line", sparkline: { enabled: true } },
     stroke: { width: 2 },
-    title: { text: `${label} (${data.length} days)`, align: 'center' },
+    title: { text: `${label} (${data.length} days)`, align: "center" },
   };
 
-  return <ReactApexChart options={options} series={series} type="line" height={100} />;
+  return (
+    <ReactApexChart
+      options={options}
+      series={series}
+      type="line"
+      height={100}
+    />
+  );
 };
 
 export default SparklineChart;

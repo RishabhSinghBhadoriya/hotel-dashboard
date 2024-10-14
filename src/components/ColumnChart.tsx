@@ -1,5 +1,5 @@
-import React, { useMemo } from 'react';
-import ReactApexChart from 'react-apexcharts';
+import React, { useMemo } from "react";
+import ReactApexChart from "react-apexcharts";
 
 interface Props {
   data: any[];
@@ -8,25 +8,28 @@ interface Props {
 const ColumnChart: React.FC<Props> = ({ data }) => {
   const countryData = useMemo(() => {
     return data.reduce((acc, curr) => {
-      acc[curr.country] = (acc[curr.country] || 0) + (curr.adults + curr.children + curr.babies);
+      acc[curr.country] =
+        (acc[curr.country] || 0) + (curr.adults + curr.children + curr.babies);
       return acc;
     }, {});
   }, [data]);
 
   const series = [
     {
-      name: 'Visitors',
+      name: "Visitors",
       data: Object.values(countryData),
     },
   ];
 
   const options = {
-    chart: { type: 'bar' },
+    chart: { type: "bar" },
     xaxis: { categories: Object.keys(countryData) },
-    title: { text: 'Number of Visitors by Country' },
+    title: { text: "Number of Visitors by Country" },
   };
 
-  return <ReactApexChart options={options} series={series} type="bar" height={350} />;
+  return (
+    <ReactApexChart options={options} series={series} type="bar" height={350} />
+  );
 };
 
 export default ColumnChart;
