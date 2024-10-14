@@ -1,4 +1,3 @@
-// src/components/SparklineChart.tsx
 import React from 'react';
 import ReactApexChart from 'react-apexcharts';
 
@@ -13,7 +12,7 @@ const SparklineChart: React.FC<Props> = ({ label, data }) => {
   const options = {
     chart: { type: 'line', sparkline: { enabled: true } },
     stroke: { width: 2 },
-    title: { text: `${label}`, align: 'center' },
+    title: { text: `${label} (${data.length} days)`, align: 'center' },
   };
 
   return <ReactApexChart options={options} series={series} type="line" height={100} />;

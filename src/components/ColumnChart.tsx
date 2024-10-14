@@ -1,5 +1,4 @@
-// src/components/ColumnChart.tsx
-import React from 'react';
+import React, { useMemo } from 'react';
 import ReactApexChart from 'react-apexcharts';
 
 interface Props {
@@ -7,10 +6,12 @@ interface Props {
 }
 
 const ColumnChart: React.FC<Props> = ({ data }) => {
-  const countryData = data.reduce((acc, curr) => {
-    acc[curr.country] = (acc[curr.country] || 0) + (curr.adults + curr.children + curr.babies);
-    return acc;
-  }, {});
+  const countryData = useMemo(() => {
+    return data.reduce((acc, curr) => {
+      acc[curr.country] = (acc[curr.country] || 0) + (curr.adults + curr.children + curr.babies);
+      return acc;
+    }, {});
+  }, [data]);
 
   const series = [
     {
